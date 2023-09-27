@@ -10,11 +10,11 @@ export type UserType = {
   id: number;
   name: string;
   age: number;
-  address: any; // пропиши типизацию
+  address: AddressType; // прописала типизацию
 };
 
 export type UsersObjectType = {
-  myFriends: any; // пропиши типизацию
+  myFriends: UserType[] // прописала типизацию
 };
 
 export const HW2 = () => {
@@ -47,7 +47,8 @@ export const HW2 = () => {
   let [currentUsers, setCurrentUsers] = useState<UsersObjectType>(users);
 
   const filterUsers = () => {
-    const filteredUsers = 'НУЖНО ПРОФИЛЬТРОВАТЬ ДРУЗЕЙ. ОСТАВЛЯЕМ ТОЛЬКО ТЕХ, КОТОРЫЕ ЖИВУТ В ГОРОДЕ LOS ANGELES';
+    const filteredUsers = currentUsers.myFriends.filter(friend => friend.address.city === 'Los Angeles' )
+        //'ОТФИЛЬТРОВАЛА ДРУЗЕЙ. ОСТАВИЛА ТОЛЬКО ТЕХ, КОТОРЫЕ ЖИВУТ В ГОРОДЕ LOS ANGELES';
     setCurrentUsers({ myFriends: filteredUsers });
   };
 

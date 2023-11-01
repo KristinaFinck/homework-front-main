@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+type handleChange = (event: React.ChangeEvent<HTMLInputElement>) => void;
+
 export const HW3 = () => {
   // 1️⃣ Раскомментируйте JSX(HW3.tsx) и вы увидите,
   // что приложение начнет гореть красным и ругаться 😡
@@ -15,40 +17,44 @@ export const HW3 = () => {
     'То, что вы делаете по ночам, то и делает вас богатым. (Аль Капоне)',
   ]);
 
-  const handleChange = (event: 'НУЖНО ПРОТИПИЗИРОВАТЬ') => {
-    // setCurrentText(ЧЕГО-ТО НЕ ХВАТАЕТ);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentText(event.target.value);
   };
 
   const handleSave = () => {
-    // ЗАСЕТАТЬ БЫ ТЕКСТ В texts И НЕ ПОТЕРЯТЬ НАПУТСТВИЕ ИЗ ПРОШЛОГО ВЕКА)
-    // А ЗАТЕМ УБРАТЬ ЗА СОБОЙ В currentText
+      setTexts([...texts,currentText]);
+      setCurrentText('');
+
   };
 
   return (
+      <div>
     <div id={'hw03'}>
-      {/*{currentText ? (*/}
-      {/*  <h1 id={'hw03-text'}>ЗДЕСЬ ХОТЕЛОСЬ БЫ УВИДЕТЬ ВВОДИМЫЙ ТЕКСТ</h1>*/}
-      {/*) : (*/}
-      {/*  <h1 id={'hw03-default-text'}>Здесь появится новое дело</h1> // ничего не меняем, здесь все норм*/}
-      {/*)}*/}
+        {currentText ? (
+      <h1 id={'hw03-text'}>{currentText}</h1>
+      ) : (
+     <h1 id={'hw03-default-text'}>Здесь появится новое дело</h1>
+      )}
+    </div>
 
-      {/*<input id={'hw03-input'} type="text" value={currentText} onChange={handleChange} />*/}
+      <input id={'hw03-input'} type="text" value={currentText} onChange={handleChange} />
 
-      {/*<button id={'hw03-button'} onClick={() => {}}> // НЕ ХВАТАТЕТ ФУНКЦИИ*/}
-      {/*  Сохранить*/}
-      {/*</button>*/}
+      <button id={'hw03-button'} onClick={handleSave}>
+          сохранить
+      </button>
 
-      {/*<h1 style={{ marginTop: '50px' }}>СПИСОК ДЕЛ НА ДЕНЬ:</h1>*/}
 
-      {/*<ol id={'hw03-tasks'}>*/}
-      {/*  {ОТРИСОВАТЬ МАССИВ.map((el, index) => {*/}
-      {/*    return (*/}
-      {/*      <li key={index} id={`hw03-task-${index}`}>*/}
-      {/*        {el}*/}
-      {/*      </li>*/}
-      {/*    );*/}
-      {/*  })}*/}
-      {/*</ol>*/}
+      <h1 style={{ marginTop: '50px' }}>СПИСОК ДЕЛ НА ДЕНЬ:</h1>
+
+      <ol id={'hw03-tasks'}>
+    {texts.map((el, index) => {
+        return (
+       <li key={index} id={`hw03-task-${index}`}>
+              {el}
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 };
